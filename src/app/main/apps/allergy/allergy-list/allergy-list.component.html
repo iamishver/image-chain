@@ -1,0 +1,115 @@
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column">
+
+    <!-- HEADER -->
+    <div class="header accent p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-18">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text"> Allergies </span>
+            </div>
+            <div class="h1 mt-16">My Allergy</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+
+    <!-- CENTER -->
+    <div class="center" fusePerfectScrollbar>
+        <!-- CONTENT -->
+        <div class="content p-24">
+
+            <div class="example-header">
+                <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+            </div>
+
+            <div class="example-container mat-elevation-z8">
+
+                <mat-table [dataSource]="dataSource" matSort>
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="beginDate">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Begin Date </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.beginDate}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="endDate">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> End Date </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.endDate}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="occurrence">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> occurrence </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{occurrenceList[row.occurrence - 1].occurrence_value}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="outcome">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> outcome </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{outcomeList[row.outcome - 1].outcome_value}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="reaction">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> reaction </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{reactionList[row.reaction - 1].reaction_value}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="severity">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> severity </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{severityList[row.severity - 1].severity_value}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="type">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> type </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{allergyTypeList[row.type - 1].allergyType_value}} </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </mat-row>
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="Action">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+
+                                <button mat-raised-button class="primary" title="Edit Allergy" aria-label="Edit Allergy"
+                                    (click)="EditForAllergy(row, i)">
+                                    <mat-icon class="secondary-text s-18">edit</mat-icon>
+                                </button>
+                                &nbsp;
+                                <!-- <button mat-raised-button class="accent" title="View Allergy" aria-label="View Allergy"
+                                    (click)="viewForAllergy(row)">
+                                    <mat-icon class="secondary-text s-18">remove_red_eye</mat-icon>
+                                </button> -->
+                                <button mat-raised-button class="accent" title="Delete Allergy" aria-label="Delete Allergy"
+                                    (click)="deleteForAllergy(row._id , i)">
+                                    <mat-icon class="secondary-text s-18">delete_forever</mat-icon>
+                                </button>
+
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+                    <!-- Action Column -->
+
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+            </div>
+
+
+        </div>
+        <!-- / CONTENT -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

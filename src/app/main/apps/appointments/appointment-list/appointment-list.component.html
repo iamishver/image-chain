@@ -1,0 +1,93 @@
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column">
+
+    <!-- HEADER -->
+    <div class="header accent p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-18">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text"> Encounters </span>
+            </div>
+            <div class="h1 mt-16">Encounter History</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+
+    <!-- CENTER -->
+    <div class="center" fusePerfectScrollbar>
+        <!-- CONTENT -->
+        <div class="content p-24">
+
+            <div class="example-header">
+                <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+            </div>
+
+            <div class="example-container mat-elevation-z8">
+
+                <mat-table [dataSource]="dataSource" matSort>
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Dr. Name </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Date Column -->
+                    <ng-container matColumnDef="Date">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.Date}} </mat-cell>
+                    </ng-container>
+
+                    <!-- reasontovisit Column -->
+                    <ng-container matColumnDef="reasontovisit">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Reason To Visit </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;"> {{row.reasontovisit}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Status Column -->
+                    <!-- <ng-container matColumnDef="Status" style="display: none;">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                        <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
+                        <mat-cell *matCellDef="let row"> {{row.Status}} </mat-cell>
+                    </ng-container> -->
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="Action">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                        <!-- <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell> -->
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+
+                                <button mat-raised-button class="primary" aria-label="View Encounter" (click)="viewForEncounter(row)">
+                                    View Encounter
+                                </button>
+
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </mat-row>
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+            </div>
+
+
+        </div>
+        <!-- / CONTENT -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>
